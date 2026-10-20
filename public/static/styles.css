@@ -47,7 +47,10 @@ button, input { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
 
 /* Masthead */
-.masthead { margin-bottom: 28px; }
+.masthead { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; align-items: start; margin-bottom: 28px; }
+.masthead .lede { grid-column: 1 / -1; }
+.theme-toggle { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.theme-toggle svg { width: 16px; height: 16px; }
 .masthead h1 { font: 700 1.75rem/1.2 var(--sans); letter-spacing: -0.01em; }
 .lede { color: var(--muted); margin-top: 4px; }
 

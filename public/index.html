@@ -9,11 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/styles.css">
+  <script>
+    // Apply a saved light/dark choice before first paint, so the page doesn't flash the other theme.
+    try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
   <main class="page">
     <header class="masthead">
       <h1>Review pulse simulator</h1>
+      <button type="button" class="ghost theme-toggle" id="theme-toggle"></button>
       <p class="lede" id="snapshot-line">Loading reviews…</p>
     </header>
 
