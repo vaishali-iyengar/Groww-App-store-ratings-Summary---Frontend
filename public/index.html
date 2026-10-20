@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Pulse Simulator</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <h1>Review pulse simulator</h1>
+      <p class="lede" id="snapshot-line">Loading reviews…</p>
+    </header>
+
+    <section class="picker" aria-labelledby="picker-title">
+      <div class="picker-head">
+        <h2 id="picker-title">How many weeks should the pulse cover?</h2>
+        <p class="hint">Click a week to include it and every week after it. Bar height shows how many reviews came in that week.</p>
+      </div>
+
+      <div class="weeks" id="weeks" role="group" aria-label="Weeks to review"></div>
+
+      <div class="picker-foot">
+        <p class="selection" id="selection" aria-live="polite"></p>
+        <div class="controls">
+          <label class="field">
+            <span>Weeks</span>
+            <input id="weeks-input" type="number" min="1" max="10" step="1" value="4" inputmode="numeric">
+          </label>
+          <label class="toggle">
+            <input id="offline" type="checkbox">
+            <span>Offline mode (no LLM)</span>
+          </label>
+          <button id="run" class="run" type="button">Run pulse</button>
+        </div>
+      </div>
+      <p class="field-error" id="weeks-error" role="alert" hidden></p>
+    </section>
+
+    <section class="progress" id="progress" hidden aria-live="polite">
+      <ol class="steps">
+        <li data-stage="filtering">Selecting reviews</li>
+        <li data-stage="theming">Finding themes</li>
+        <li data-stage="writing">Writing the pulse</li>
+      </ol>
+    </section>
+
+    <section class="error" id="error" hidden role="alert">
+      <p id="error-text"></p>
+      <button type="button" class="ghost" id="retry">Try again</button>
+    </section>
+
+    <section class="empty" id="empty">
+      <p>Pick a number of weeks and run the pulse to see the top themes, what users say and what to do next.</p>
+    </section>
+
+    <article class="results" id="results" hidden>
+      <header class="summary">
+        <dl class="facts">
+          <div><dt>Reviews used</dt><dd id="r-count"></dd></div>
+          <div><dt>Weeks considered</dt><dd id="r-weeks"></dd></div>
+          <div><dt>Review dates</dt><dd id="r-window" class="small"></dd></div>
+        </dl>
+        <p class="headline" id="r-headline"></p>
+        <p class="warning" id="r-low" hidden></p>
+      </header>
+
+      <section class="block" aria-labelledby="h-themes">
+        <h2 id="h-themes">Top themes</h2>
+        <ol class="themes" id="r-themes"></ol>
+      </section>
+
+      <section class="block" aria-labelledby="h-quotes">
+        <h2 id="h-quotes">What users say</h2>
+        <div class="quotes" id="r-quotes"></div>
+      </section>
+
+      <section class="block" aria-labelledby="h-actions">
+        <h2 id="h-actions">Action items</h2>
+        <ul class="actions" id="r-actions"></ul>
+      </section>
+
+      <footer class="meta">
+        <p id="r-meta"></p>
+        <button type="button" class="ghost" id="copy">Copy as Markdown</button>
+      </footer>
+    </article>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
