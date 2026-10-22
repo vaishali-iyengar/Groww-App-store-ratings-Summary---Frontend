@@ -121,6 +121,22 @@ flowchart LR
     D --> E["Vercel redeploys<br/>the simulator"]
 ```
 
+## Tech stack
+
+| Layer | Technology | Used for |
+| --- | --- | --- |
+| **Frontend** | HTML, CSS and plain JavaScript (no framework, no build step) | The week picker, progress steps and report |
+| | Google Fonts: Schibsted Grotesk and Newsreader | Interface text, and the headline and quotes |
+| **Backend** | Python 3.12, [FastAPI](https://fastapi.tiangolo.com), Pydantic | The web API and input checks |
+| **Grouping reviews** | Sentence embeddings from `all-MiniLM-L6-v2` ([sentence-transformers](https://www.sbert.net)), computed in advance | Turning each review into numbers that capture its meaning |
+| | [scikit-learn](https://scikit-learn.org) k-means and NumPy | Grouping similar reviews into themes |
+| | scikit-learn TF-IDF | Keyword theme names in offline mode |
+| **AI** | [Groq](https://groq.com) API with the `openai/gpt-oss-120b` model, using structured JSON output | Naming themes, writing the headline, summaries and actions, and choosing quotes |
+| **Settings** | YAML (`config.yaml`) | Number of themes, word limit, AI model |
+| **Hosting** | [Vercel](https://vercel.com): one Python function for the API, CDN for the page | Running the simulator online |
+
+The main project, which feeds this repository, also uses `google-play-scraper` to download reviews, the Model Context Protocol (MCP) to create Google Docs and send email, macOS `launchd` to run every week, and `pytest` for its tests.
+
 ## Repository layout
 
 | Path | What it is |
